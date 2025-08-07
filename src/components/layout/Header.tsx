@@ -1,8 +1,6 @@
 import type { HeaderProps } from "../../types/type"
 
-
-
-const Header = ({ currentPage, onPageChange }:HeaderProps) => {
+const Header = ({ currentPage, onPageChange, collectionCount }:HeaderProps) => {
 
   return (
     <header className="bg-white shadow-lg sticky top-0 z-50">
@@ -20,7 +18,7 @@ const Header = ({ currentPage, onPageChange }:HeaderProps) => {
 
         {/* Navigation Tabs */}
         <nav className="flex space-x-1 bg-gray-100 p-1 rounded-lg">
-          <button
+        <button
             onClick={() => onPageChange('discovery')}
             className={`px-4 py-2 rounded-md text-sm cursor-pointer font-medium transition-colors duration-200 ${
               currentPage === 'discovery'
@@ -39,6 +37,11 @@ const Header = ({ currentPage, onPageChange }:HeaderProps) => {
             }`}
           >
             My Collection
+            {collectionCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {collectionCount}
+              </span>
+            )}
           </button>
         </nav>
       </div>

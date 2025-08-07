@@ -2,9 +2,16 @@ import { useEffect } from "react";
 import PokemonCard from "../components/card/card";
 import { flattenPokemonData, useInfinitePokemon } from "../hook/useInfinitePokemon";
 import { useInView } from 'react-intersection-observer';
+import type { Pokemon } from "../types/type";
 
 
-const DiscoveryPage = () => {
+interface DiscoveryPageProps {
+  addToCollection: (pokemon: Pokemon) => void;
+  removeFromCollection: (pokemonId: number) => void;
+  collection: Pokemon[];
+}
+
+const DiscoveryPage = ({ addToCollection, removeFromCollection, collection }: DiscoveryPageProps) => {
 
     const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading, error } = useInfinitePokemon();
     const allPokemon = flattenPokemonData(data);
@@ -47,8 +54,12 @@ const DiscoveryPage = () => {
             <PokemonCard
               key={pokemon.id}
               pokemon={pokemon}
-              isInCollection={false}
-              onAddToCollection={() => {}}
+              isInCollection={collection.some(p => p.id === pokemon.id)}
+              onAddToCollection={addToCollection}
+              onRemoveFromCollection={(e, pokemonId) => {
+                e.stopPropagation();
+                removeFromCollection(pokemonId);
+              }}
             />
           ))}
         </div>

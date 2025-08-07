@@ -56,6 +56,7 @@ export interface PokemonPage {
   export interface HeaderProps {
     currentPage: 'discovery' | 'collection';
     onPageChange: (page: 'discovery' | 'collection') => void;
+    collectionCount: number;
   }
 
 
@@ -63,6 +64,10 @@ export interface PokemonPage {
     pokemon: Pokemon;
     isInCollection: boolean;
     onAddToCollection: (pokemon: Pokemon) => void;
-    onRemoveFromCollection?: (pokemonId: number) => void;
+    onRemoveFromCollection?: (e: React.MouseEvent, pokemonId: number) => void;
     showRemoveButton?: boolean;
+  }
+
+  export interface CollectionPokemon extends Pokemon {
+    addedAt: number;
   }

@@ -45,11 +45,12 @@ const PokemonCard = ({ pokemon,
     const handleAddToCollection = () => {
         onAddToCollection(pokemon);
     };
+    
 
-    const handleRemoveFromCollection = () => {
-        console.log('@id',pokemon.id)
+    const handleRemoveFromCollection = (e: React.MouseEvent) => {
+        e.stopPropagation();
         if (onRemoveFromCollection) {
-            onRemoveFromCollection(pokemon.id);
+            onRemoveFromCollection(e, pokemon.id);
         }
     };
 
